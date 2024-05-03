@@ -1,29 +1,31 @@
+"use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { User } from "../store/atoms/User";
+import { useSetRecoilState } from "recoil";
 
 
-const Login = () => {
+const page = () => {
   const [Email, setEmail] = useState<string | null>(null);
   const [Password, setPassword] = useState<string | null>(null);
   const [Warning, setWarning] = useState<string | null>(null);
+  const setUser = useSetRecoilState(User);
   const navigate = useRouter();
   const handlelogin = async () => {
     try {
-      const res = await fetch(
-        `http://localhost:8080/api/auth/login`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: Email,
-            password: Password,
-          }),
-          credentials: "include",
-        }
-      );
+      const res = await fetch(`http://localhost:8080/api/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: Email,
+          password: Password,
+        }),
+        credentials: "include",
+      });
 
       const data = await res.json();
       console.log(data);
@@ -34,6 +36,7 @@ const Login = () => {
         setWarning(data.error);
         return;
       }
+      setUser(data.user);
       navigate.push("/");
     } catch (error) {
       console.log(error);
@@ -44,7 +47,7 @@ const Login = () => {
   return (
     <div className="flex">
       <div className="md:flex hidden cursor-pointer  text-[3vh] w-[40vw] h-screen font-bold ">
-      <Image
+        <Image
           src={require("../assets/banner.jpg")}
           className=" object-cover w-full h-full"
           alt="logo"
@@ -114,4 +117,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default page;
