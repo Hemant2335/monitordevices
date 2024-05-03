@@ -5,12 +5,14 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { User } from "../store/atoms/User";
 import { useSetRecoilState } from "recoil";
+import Twofactor from "../components/Twofactor";
 
 
 const page = () => {
   const [Email, setEmail] = useState<string | null>(null);
   const [Password, setPassword] = useState<string | null>(null);
   const [Warning, setWarning] = useState<string | null>(null);
+  const [isClicked, setisClicked] = useState(false);
   const setUser = useSetRecoilState(User);
   const navigate = useRouter();
   const handlelogin = async () => {
@@ -37,7 +39,13 @@ const page = () => {
         return;
       }
       setUser(data.user);
-      navigate.push("/");
+      if(!data.user.is_verified){
+        navigate.push("/");
+      }
+      else {
+        setisClicked(true);
+      }
+      
     } catch (error) {
       console.log(error);
       return setWarning("Internal Server Error");
@@ -46,6 +54,7 @@ const page = () => {
 
   return (
     <div className="flex">
+      {isClicked && (<Twofactor setisClicked = {setisClicked}/>)}
       <div className="md:flex hidden cursor-pointer  text-[3vh] w-[40vw] h-screen font-bold ">
         <Image
           src={require("../assets/banner.jpg")}

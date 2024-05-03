@@ -40,7 +40,7 @@ const Signup = () => {
       setWarning(data.error);
       return;
     }
-    router.push("/");
+    router.push("/Signin");
   };
 
   return (
