@@ -9,3 +9,8 @@ export const User = atom({
         is_verified: false,
     },
 })
+
+export const SessionsState = atom({
+    key: "Sessions",
+    default: [],
+})

@@ -7,7 +7,7 @@ import { User } from "../store/atoms/User";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 
-const Twofactor = ({ setisClicked }: any) => {
+const Twofactor = ({ setisClicked  , email}: any) => {
   const [qrurl, setqrurl] = useState("");
   const [isScanned, setisScanned] = useState(false);
   const [Code, setCode] = useState("");
@@ -36,7 +36,8 @@ const Twofactor = ({ setisClicked }: any) => {
         },
         credentials: "include",
         body : JSON.stringify({
-            token : Code
+            token : Code,
+            email : email
         })
     })
     const data = await res.json();

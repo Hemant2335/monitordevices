@@ -7,11 +7,17 @@ import { User } from "./store/atoms/User";
 import { useRecoilState } from "recoil";
 import Navbar from "./components/Navbar";
 import Session from "./components/Session";
+import { useSocket } from "./hooks/useSocket";
+import { SessionsState } from "./store/atoms/User";
 
 const Homepage = () => {
   const navigate = useRouter();
   const [user, setuser] = useRecoilState(User);
-  const [sessions, setsessions] = useState([])
+  const [sessions, setsessions] = useRecoilState(SessionsState)
+  
+  const { socket}  = useSocket(
+    "ws://localhost:8080"
+  );
 
   const CheckValidSession = async() =>{
     const res = await fetch(`http://localhost:8080/api/auth/check-session`, {
@@ -64,7 +70,11 @@ const Homepage = () => {
 
   useEffect(() => {
     if (!getCookie("token")) {
-      navigate.push("/Signin");
+      console.log("No token");
+      return navigate.push("/Signin");
+    }
+    if(!getCookie("DeviceId")){
+      return navigate.push("/Signin");
     }
     fetchUser();
     CheckValidSession();
@@ -75,8 +85,8 @@ const Homepage = () => {
     <div className="p-[5vh]">
       <Navbar/>
       <h1 className="text-2xl font-semibold mt-[5vh]">Devices</h1>
-      <div className="grid grid-cols-2 mt-[5vh]">
-        {sessions.map((session : any) => (
+      <div className="grid grid-cols-4 mt-[5vh]">
+        {sessions && sessions?.map((session : any) => (
           <Session key={session.id} session={session}/>
         ))}
       </div>

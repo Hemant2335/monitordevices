@@ -54,7 +54,7 @@ const page = () => {
 
   return (
     <div className="flex">
-      {isClicked && (<Twofactor setisClicked = {setisClicked}/>)}
+      {isClicked && (<Twofactor setisClicked = {setisClicked} email = {Email}/>)}
       <div className="md:flex hidden cursor-pointer  text-[3vh] w-[40vw] h-screen font-bold ">
         <Image
           src={require("../assets/banner.jpg")}
