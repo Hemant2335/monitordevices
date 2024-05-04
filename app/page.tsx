@@ -67,6 +67,16 @@ const Homepage = () => {
     setsessions(data);
   }
 
+  useEffect(() => {
+    if (!getCookie("token")) {
+      console.log("No token");
+      return navigate.push("/Signin");
+    }
+    if(!getCookie("DeviceId")){
+      return navigate.push("/Signin");
+    }
+    CheckValidSession();
+  }, [sessions])
 
   useEffect(() => {
     if (!getCookie("token")) {
@@ -87,7 +97,7 @@ const Homepage = () => {
       <h1 className="text-2xl font-semibold mt-[5vh]">Devices</h1>
       <div className="grid grid-cols-4 mt-[5vh]">
         {sessions && sessions?.map((session : any) => (
-          <Session key={session.id} session={session}/>
+          <Session key={session.id} session={session} socket = {socket}/>
         ))}
       </div>
     </div>

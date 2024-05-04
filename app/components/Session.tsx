@@ -1,6 +1,6 @@
 import React from "react";
 
-const Session = ({ session }: any) => {
+const Session = ({ session , socket}: any) => {
 
 
   const handlesignout = async() =>{
@@ -19,6 +19,7 @@ const Session = ({ session }: any) => {
     }
     else
     {
+      socket.send(JSON.stringify({type : "Remove" , session : session}));
       alert(data.message)
     }
     } catch (error) {

@@ -45,13 +45,18 @@ export const useSocket = (url: string) => {
         console.log("Adding Session");
         setSes((prev)=>[...prev , data.session as never]);
       }
+      else if(data.type === "Remove")
+      {
+        console.log("Removing Session");
+        setSes((prev)=>prev.filter((ses : any)=> ses.id !== data.session.id));
+      }
     };
 
     return () => {
       console.log("Cleaning up WebSocket");
       socket?.close();
     };
-  }, [url, user]);
+  }, [user]);
 
   return { socket };
 };
