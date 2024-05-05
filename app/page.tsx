@@ -16,7 +16,7 @@ const Homepage = () => {
   const [sessions, setsessions] = useRecoilState(SessionsState)
   
   const { socket}  = useSocket(
-    "ws://montior-backend.onrender.com"
+    "wss://montior-backend.onrender.com"
   );
 
   const CheckValidSession = async() =>{
