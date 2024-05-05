@@ -8,7 +8,7 @@ import { useSetRecoilState } from "recoil";
 import Twofactor from "../components/Twofactor";
 
 
-const page = () => {
+const Signin = () => {
   const [Email, setEmail] = useState<string | null>(null);
   const [Password, setPassword] = useState<string | null>(null);
   const [Warning, setWarning] = useState<string | null>(null);
@@ -126,4 +126,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Signin;
