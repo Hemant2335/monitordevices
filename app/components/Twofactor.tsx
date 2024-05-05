@@ -56,7 +56,6 @@ const Twofactor = ({ setisClicked, email }: any) => {
     }
     if (typeof window !== 'undefined') {
       window.localStorage.setItem("token", data.token);
-      window.localStorage.setItem("DeviceId", data.DeviceId);
     }
 
     alert("Two Factor Authentication Enabled Successfully");

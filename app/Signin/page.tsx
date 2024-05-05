@@ -39,6 +39,8 @@ const Signin = () => {
         return;
       }
       setUser(data.user);
+      console.log(data);
+      if(typeof window !== 'undefined')
       window.localStorage.setItem("DeviceId", data.DeviceId);
       if(!data.user.is_verified && typeof window !== 'undefined'){
         window.localStorage.setItem("token", data.token);
