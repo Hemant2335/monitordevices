@@ -18,6 +18,7 @@ const Signin = () => {
   const navigate = useRouter();
   const handlelogin = async () => {
     try {
+      console.log(browserName , isMobile);
       const res = await fetch(`https://montior-backend.onrender.com/api/auth/login`, {
         method: "POST",
         headers: {
@@ -26,7 +27,7 @@ const Signin = () => {
         body: JSON.stringify({
           email: Email,
           password: Password,
-          browsername: browserName,
+          browsername: browserName ? browserName : "",
           devicename : (isMobile) ? ("Mobile") : ("Desktop")
         }),
         credentials: "include",
