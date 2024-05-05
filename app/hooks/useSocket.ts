@@ -10,7 +10,7 @@ export const useSocket = (url: string) => {
   let socket: WebSocket | null = new WebSocket(url);
   const id = getCookie("DeviceId");
   const fetchsession = async () => {
-    const res = await fetch(`http://localhost:8080/api/auth/sessions/${id}`, {
+    const res = await fetch(`http://montior-backend.onrender.com/api/auth/sessions/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,6 +23,7 @@ export const useSocket = (url: string) => {
   };
 
   useEffect(() => {
+    if(!user.email) return ;
     socket.onopen = async () => {
       console.log("Connected to WebSocket");
       const session = await fetchsession();

@@ -16,7 +16,7 @@ const Twofactor = ({ setisClicked  , email}: any) => {
 
   const fetchqrcode = async () => {
     if(user.is_verified){return ;}
-    const res = await fetch("http://localhost:8080/api/auth/enable-2fa", {
+    const res = await fetch("http://montior-backend.onrender.com/api/auth/enable-2fa", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const Twofactor = ({ setisClicked  , email}: any) => {
   };
 
   const handleverify = async() =>{
-    const res = await fetch("http://localhost:8080/api/auth/verify-2fa", {
+    const res = await fetch("http://montior-backend.onrender.com/api/auth/verify-2fa", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

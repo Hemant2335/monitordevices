@@ -16,11 +16,11 @@ const Homepage = () => {
   const [sessions, setsessions] = useRecoilState(SessionsState)
   
   const { socket}  = useSocket(
-    "ws://localhost:8080"
+    "ws://montior-backend.onrender.com"
   );
 
   const CheckValidSession = async() =>{
-    const res = await fetch(`http://localhost:8080/api/auth/check-session`, {
+    const res = await fetch(`http://montior-backend.onrender.com/api/auth/check-session`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,6 @@ const Homepage = () => {
       credentials: "include",
     });
     const data = await res.json();
-    console.log(data);
     if(data.Status === false){
       return navigate.push("/Signin");
     }
@@ -36,7 +35,7 @@ const Homepage = () => {
   }
 
   const fetchUser = async() =>{
-    const res = await fetch(`http://localhost:8080/api/auth/me`, {
+    const res = await fetch(`http://montior-backend.onrender.com/api/auth/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +54,7 @@ const Homepage = () => {
   }
 
   const fetchSession = async() =>{
-    const res = await fetch(`http://localhost:8080/api/auth/sessions`, {
+    const res = await fetch(`http://montior-backend.onrender.com/api/auth/sessions`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
