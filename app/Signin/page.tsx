@@ -6,6 +6,7 @@ import Image from "next/image";
 import { User } from "../store/atoms/User";
 import { useSetRecoilState } from "recoil";
 import Twofactor from "../components/Twofactor";
+import { browserName ,  isMobile } from "react-device-detect";
 
 
 const Signin = () => {
@@ -25,6 +26,8 @@ const Signin = () => {
         body: JSON.stringify({
           email: Email,
           password: Password,
+          browsername: browserName,
+          devicename : (isMobile) ? ("Mobile") : ("Desktop")
         }),
         credentials: "include",
       });
