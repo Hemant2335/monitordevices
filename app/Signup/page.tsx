@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
-import { createuser } from "../ServerActions/createuser";
 import { useRouter } from "next/navigation";
 
 const Signup = () => {
@@ -12,6 +11,34 @@ const Signup = () => {
   const [Terms, setTerms] = useState<boolean>(false);
   const [Warning, setWarning] = useState<string | null>(null);
   const router = useRouter();
+
+  async function createuser(Props:any) {
+    console.log("Running");
+    try {
+      const res = await fetch("https://montior-backend.onrender.com/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: Props.Name,
+          email: Props.Email,
+          password: Props.Password,
+          username: Props.Username,
+          profilepic: "",
+          location: "",
+          bio: "",
+        }),
+        credentials: "include",
+      });
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.log(error);
+      return "An error occurred";
+    }
+  }
+
   const handlebtnclick = async () => {
     // Could have used a Better approach for Error handling
 
