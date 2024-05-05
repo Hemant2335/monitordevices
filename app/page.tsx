@@ -24,6 +24,7 @@ const Homepage = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "authorization" : localStorage.getItem("token") || ""
       },
       credentials: "include",
     });
@@ -39,6 +40,7 @@ const Homepage = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "authorization" : localStorage.getItem("token") || ""
       },
       credentials: "include",
     });
@@ -58,6 +60,7 @@ const Homepage = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "authorization" : localStorage.getItem("token") || ""
       },
       credentials: "include",
     });
@@ -67,22 +70,22 @@ const Homepage = () => {
   }
 
   useEffect(() => {
-    if (!getCookie("token")) {
+    if (!localStorage.getItem("token")) {
       console.log("No token");
       return navigate.push("/Signin");
     }
-    if(!getCookie("DeviceId")){
+    if(!localStorage.getItem("DeviceId")){
       return navigate.push("/Signin");
     }
     CheckValidSession();
   }, [sessions])
 
   useEffect(() => {
-    if (!getCookie("token")) {
+    if (!localStorage.getItem("token")) {
       console.log("No token");
       return navigate.push("/Signin");
     }
-    if(!getCookie("DeviceId")){
+    if(!localStorage.getItem("DeviceId")){
       return navigate.push("/Signin");
     }
     fetchUser();

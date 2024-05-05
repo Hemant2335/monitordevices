@@ -108,7 +108,7 @@ const Twofactor = ({ setisClicked  , email}: any) => {
               onClick={() => handleverify()}
               className="bg-[#EA4B8B] font-medium w-[30vw] py-2 px-[2vw] text-sm text-white rounded-lg mt-[2vh]"
             >
-              Next
+              Verify
             </button>
           </div>
         )}
