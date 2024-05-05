@@ -41,6 +41,7 @@ export const useSocket = (url: string) => {
       console.log(Ses);
       if (data.type === "Add") {
         // Check if session with the same ID already exists
+        if(typeof window !== 'undefined' && data.session.userId !== user.id){return ;}
         const sessionExists = Ses.some((ses: any) => ses?.id === data.session.id);
         if (sessionExists) {
           console.log("Session Already Exists");
