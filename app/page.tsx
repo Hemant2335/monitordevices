@@ -104,7 +104,7 @@ const Homepage = () => {
     <div className="p-[5vh]">
       <Navbar/>
       <h1 className="text-2xl font-semibold mt-[5vh]">Devices</h1>
-      <div className="grid grid-cols-4 mt-[5vh]">
+      <div className="md:grid md:grid-cols-4 ">
         {sessions && sessions?.map((session : any) => (
           <Session key={session.id} session={session} socket = {socket}/>
         ))}
