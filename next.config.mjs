@@ -2,6 +2,7 @@
 const nextConfig = {
     reactStrictMode: false,
     distDir: 'build',
+    output : 'export',
 };
 
 export default nextConfig;
