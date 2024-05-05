@@ -10,7 +10,7 @@ export const useSocket = (url: string) => {
   let socket: WebSocket | null = new WebSocket(url);
   const id = getCookie("DeviceId");
   const fetchsession = async () => {
-    const res = await fetch(`http://montior-backend.onrender.com/api/auth/sessions/${id}`, {
+    const res = await fetch(`https://montior-backend.onrender.com/api/auth/sessions/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

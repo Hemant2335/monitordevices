@@ -10,7 +10,7 @@ type CreateUserProps = {
 export async function createuser(Props: CreateUserProps) {
   console.log("Running");
   try {
-    const res = await fetch("http://montior-backend.onrender.com/api/auth/register", {
+    const res = await fetch("https://montior-backend.onrender.com/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

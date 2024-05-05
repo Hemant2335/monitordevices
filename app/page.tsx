@@ -20,7 +20,7 @@ const Homepage = () => {
   );
 
   const CheckValidSession = async() =>{
-    const res = await fetch(`http://montior-backend.onrender.com/api/auth/check-session`, {
+    const res = await fetch(`https://montior-backend.onrender.com/api/auth/check-session`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const Homepage = () => {
   }
 
   const fetchUser = async() =>{
-    const res = await fetch(`http://montior-backend.onrender.com/api/auth/me`, {
+    const res = await fetch(`https://montior-backend.onrender.com/api/auth/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const Homepage = () => {
   }
 
   const fetchSession = async() =>{
-    const res = await fetch(`http://montior-backend.onrender.com/api/auth/sessions`, {
+    const res = await fetch(`https://montior-backend.onrender.com/api/auth/sessions`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

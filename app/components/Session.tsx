@@ -5,7 +5,7 @@ const Session = ({ session , socket}: any) => {
 
   const handlesignout = async() =>{
     try {
-      const res = await fetch(`http://montior-backend.onrender.com/api/auth/sessions/${session?.id}/revoke`, {
+      const res = await fetch(`https://montior-backend.onrender.com/api/auth/sessions/${session?.id}/revoke`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
