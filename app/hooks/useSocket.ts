@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from "react";
 import { User } from "../store/atoms/User";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -8,13 +10,15 @@ export const useSocket = (url: string) => {
   const user = useRecoilValue(User);
   const [Ses , setSes] = useRecoilState(SessionsState);
   let socket: WebSocket | null = new WebSocket(url);
-  const id = localStorage.getItem("DeviceId");
+  const id = (typeof window !== 'undefined') ? window.localStorage.getItem("DeviceId") : null;
   const fetchsession = async () => {
+    if(typeof window === 'undefined') return ;
+    if(id === null) return ;
     const res = await fetch(`https://montior-backend.onrender.com/api/auth/sessions/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "authorization" : localStorage.getItem("token") || "",
+        "authorization" : window.localStorage.getItem("token") || "",
       },
       credentials: "include",
     });

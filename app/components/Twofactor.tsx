@@ -7,7 +7,7 @@ import { User } from "../store/atoms/User";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 
-const Twofactor = ({ setisClicked  , email}: any) => {
+const Twofactor = ({ setisClicked, email }: any) => {
   const [qrurl, setqrurl] = useState("");
   const [isScanned, setisScanned] = useState(false);
   const [Code, setCode] = useState("");
@@ -15,44 +15,55 @@ const Twofactor = ({ setisClicked  , email}: any) => {
   const router = useRouter();
 
   const fetchqrcode = async () => {
-    if(user.is_verified){return ;}
-    const res = await fetch("https://montior-backend.onrender.com/api/auth/enable-2fa", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
+    if (user.is_verified) {
+      return;
+    }
+    const res = await fetch(
+      "https://montior-backend.onrender.com/api/auth/enable-2fa",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }
+    );
     const data = await res.json();
     console.log(data.URL);
     setqrurl(data.URL);
   };
 
-  const handleverify = async() =>{
-    const res = await fetch("https://montior-backend.onrender.com/api/auth/verify-2fa", {
+  const handleverify = async () => {
+    const res = await fetch(
+      "https://montior-backend.onrender.com/api/auth/verify-2fa",
+      {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
         credentials: "include",
-        body : JSON.stringify({
-            token : Code,
-            email : email
-        })
-    })
+        body: JSON.stringify({
+          token: Code,
+          email: email,
+        }),
+      }
+    );
     const data = await res.json();
     console.log(data);
-    if(data.Status === false){
-        alert(data.error);
-        return;
+    if (data.Status === false) {
+      alert(data.error);
+      return;
     }
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("DeviceId", data.DeviceId);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem("token", data.token);
+      window.localStorage.setItem("DeviceId", data.DeviceId);
+    }
+
     alert("Two Factor Authentication Enabled Successfully");
-    setuser({...user , is_verified : true});
+    setuser({ ...user, is_verified: true });
     setisClicked(false);
     router.push("/");
-  }
+  };
 
   useEffect(() => {
     fetchqrcode();
@@ -93,7 +104,7 @@ const Twofactor = ({ setisClicked  , email}: any) => {
           </>
         )}
         {(isScanned || user.is_verified) && (
-            <div>
+          <div>
             <h1 className="text-2xl font-semibold">
               Verify Two Factor Authentication
             </h1>
@@ -114,7 +125,6 @@ const Twofactor = ({ setisClicked  , email}: any) => {
             </button>
           </div>
         )}
-        
       </div>
     </div>
   );

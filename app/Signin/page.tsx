@@ -39,9 +39,9 @@ const Signin = () => {
         return;
       }
       setUser(data.user);
-      if(!data.user.is_verified){
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("DeviceId", data.DeviceId);
+      if(!data.user.is_verified && typeof window !== 'undefined'){
+        window.localStorage.setItem("token", data.token);
+        window.localStorage.setItem("DeviceId", data.DeviceId);
         return navigate.push("/");
       }
       else {

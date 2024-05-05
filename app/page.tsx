@@ -20,14 +20,15 @@ const Homepage = () => {
   );
 
   const CheckValidSession = async() =>{
+    if(typeof window === 'undefined') return ;
     const res = await fetch(`https://montior-backend.onrender.com/api/auth/check-session`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "authorization" : localStorage.getItem("token") || "",
+        "authorization" : window.localStorage.getItem("token") || "",
       },
       body: JSON.stringify({
-        DeviceId: localStorage.getItem("DeviceId") || ""
+        DeviceId: window.localStorage.getItem("DeviceId") || ""
       }),
     });
     const data = await res.json();
@@ -38,11 +39,12 @@ const Homepage = () => {
   }
 
   const fetchUser = async() =>{
+    if(typeof window === 'undefined') return ;
     const res = await fetch(`https://montior-backend.onrender.com/api/auth/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "authorization" : localStorage.getItem("token") || ""
+        "authorization" : window.localStorage.getItem("token") || ""
       },
       credentials: "include",
     });
@@ -58,11 +60,12 @@ const Homepage = () => {
   }
 
   const fetchSession = async() =>{
+    if(typeof window === 'undefined') return ;
     const res = await fetch(`https://montior-backend.onrender.com/api/auth/sessions`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "authorization" : localStorage.getItem("token") || ""
+        "authorization" : window.localStorage.getItem("token") || ""
       },
       credentials: "include",
     });
@@ -72,22 +75,24 @@ const Homepage = () => {
   }
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if(typeof window === 'undefined') return ;
+    if (!window.localStorage.getItem("token")) {
       console.log("No token");
       return navigate.push("/Signin");
     }
-    if(!localStorage.getItem("DeviceId")){
+    if(!window.localStorage.getItem("DeviceId")){
       return navigate.push("/Signin");
     }
     CheckValidSession();
   }, [sessions])
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
+    if(typeof window === 'undefined') return ;
+    if (!window.localStorage.getItem("token")) {
       console.log("No token");
       return navigate.push("/Signin");
     }
-    if(!localStorage.getItem("DeviceId")){
+    if(!window.localStorage.getItem("DeviceId")){
       return navigate.push("/Signin");
     }
     fetchUser();

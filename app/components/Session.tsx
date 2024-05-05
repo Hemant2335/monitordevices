@@ -1,15 +1,19 @@
+"use client"
+
+
 import React from "react";
 
 const Session = ({ session , socket}: any) => {
 
 
   const handlesignout = async() =>{
+    if(typeof window === 'undefined') return;
     try {
       const res = await fetch(`https://montior-backend.onrender.com/api/auth/sessions/${session?.id}/revoke`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "authorization" : localStorage.getItem("token") || "",
+        "authorization" : window.localStorage.getItem("token") || "",
       },
       credentials: "include",
     });
