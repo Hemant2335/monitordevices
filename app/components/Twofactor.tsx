@@ -46,6 +46,8 @@ const Twofactor = ({ setisClicked  , email}: any) => {
         alert(data.error);
         return;
     }
+    localStorage.setItem("token", data.token);
+    localStorage.setItem("DeviceId", data.DeviceId);
     alert("Two Factor Authentication Enabled Successfully");
     setuser({...user , is_verified : true});
     setisClicked(false);

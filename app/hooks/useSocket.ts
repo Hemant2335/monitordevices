@@ -8,12 +8,13 @@ export const useSocket = (url: string) => {
   const user = useRecoilValue(User);
   const [Ses , setSes] = useRecoilState(SessionsState);
   let socket: WebSocket | null = new WebSocket(url);
-  const id = getCookie("DeviceId");
+  const id = localStorage.getItem("DeviceId");
   const fetchsession = async () => {
     const res = await fetch(`https://montior-backend.onrender.com/api/auth/sessions/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "authorization" : localStorage.getItem("token") || "",
       },
       credentials: "include",
     });
@@ -23,7 +24,6 @@ export const useSocket = (url: string) => {
   };
 
   useEffect(() => {
-    if(!user.email) return ;
     socket.onopen = async () => {
       console.log("Connected to WebSocket");
       const session = await fetchsession();
@@ -31,33 +31,33 @@ export const useSocket = (url: string) => {
     };
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
+      let prevsesid = null;
       console.log("Got message:", data);
+      console.log(Ses);
       if (data.type === "Add") {
-        const check = Ses.map((ses: any) => {
-          if (ses?.id === data.session.id) {
-            return true;
-          }
-          return false;
-        });
-        if (check.includes(true)) {
+        // Check if session with the same ID already exists
+        const sessionExists = Ses.some((ses: any) => ses?.id === data.session.id);
+        if (sessionExists) {
           console.log("Session Already Exists");
           return;
         }
+        if(prevsesid === data.session.id){return ;}
+        if(Ses.length <= 0){return ;}
         console.log("Adding Session");
-        setSes((prev)=>[...prev , data.session as never]);
+        setSes((prev) => [...prev, data.session as never]);  
+        prevsesid = data.session.id;      
       }
-      else if(data.type === "Remove")
-      {
+      else if (data.type === "Remove") {
         console.log("Removing Session");
-        setSes((prev)=>prev.filter((ses : any)=> ses.id !== data.session.id));
+        setSes((prev) => prev.filter((ses: any) => ses.id !== data.session.id));
       }
-    };
+    };    
 
     return () => {
       console.log("Cleaning up WebSocket");
       socket?.close();
     };
-  }, [user]);
+  }, [url,Ses]);
 
   return { socket };
 };

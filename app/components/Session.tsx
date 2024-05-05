@@ -9,6 +9,7 @@ const Session = ({ session , socket}: any) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "authorization" : localStorage.getItem("token") || "",
       },
       credentials: "include",
     });

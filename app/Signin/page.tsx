@@ -42,7 +42,7 @@ const Signin = () => {
       if(!data.user.is_verified){
         localStorage.setItem("token", data.token);
         localStorage.setItem("DeviceId", data.DeviceId);
-        navigate.push("/");
+        return navigate.push("/");
       }
       else {
         setisClicked(true);

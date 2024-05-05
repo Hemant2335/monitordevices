@@ -21,12 +21,14 @@ const Homepage = () => {
 
   const CheckValidSession = async() =>{
     const res = await fetch(`https://montior-backend.onrender.com/api/auth/check-session`, {
-      method: "GET",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "authorization" : localStorage.getItem("token") || ""
+        "authorization" : localStorage.getItem("token") || "",
       },
-      credentials: "include",
+      body: JSON.stringify({
+        DeviceId: localStorage.getItem("DeviceId") || ""
+      }),
     });
     const data = await res.json();
     if(data.Status === false){
@@ -91,7 +93,7 @@ const Homepage = () => {
     fetchUser();
     CheckValidSession();
     fetchSession();
-  }, [getCookie("token")]);
+  }, []);
 
   return (
     <div className="p-[5vh]">
