@@ -52,12 +52,18 @@ const Session = ({ session, socket }: any) => {
               </h1>
             </div>
           )}
-          <button
+          {typeof window !== 'undefined' && window.localStorage.getItem("DeviceId") === session?.id && (
+            <h1 className="text-[#EA4B8B] text-sm font-semibold ml-2">Current Session</h1>
+          )}
+          {typeof window !== 'undefined' && window.localStorage.getItem("DeviceId") !== session?.id && (
+            <button
             onClick={() => handlesignout()}
             className="bg-[#EA4B8B] font-medium w-fit py-2 px-[2vw] text-sm text-white rounded-lg"
           >
             Sign Out
           </button>
+          )}
+          
         </div>
         <div className="mt-[2vh] flex items-center">
           <LuClock4 />
