@@ -27,21 +27,6 @@ export const useSocket = (url: string) => {
     return data.session;
   };
 
-  const removesession = async () => {
-    if(typeof window === 'undefined') return ;
-    if(id === null) return ;
-    const res = await fetch(`https://montior-backend.onrender.com/api/auth//sessions/${id}/revoke`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "authorization" : window.localStorage.getItem("token") || "",
-      },
-      credentials: "include",
-    });
-    const data = await res.json();
-    console.log(data);
-    return data;
-  }
 
   useEffect(() => {
     socket.onopen = async () => {
@@ -69,7 +54,6 @@ export const useSocket = (url: string) => {
       }
       else if (data.type === "Remove") {
         console.log("Removing Session");
-        removesession();
         setSes((prev) => prev.filter((ses: any) => ses.id !== data.session.id));
       }
     };    

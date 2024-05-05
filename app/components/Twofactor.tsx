@@ -15,6 +15,9 @@ const Twofactor = ({ setisClicked, email }: any) => {
   const router = useRouter();
 
   const fetchqrcode = async () => {
+    if (typeof window === 'undefined') {
+      return;
+    }
     if (user.is_verified) {
       return;
     }
@@ -24,6 +27,7 @@ const Twofactor = ({ setisClicked, email }: any) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "authorization" : window.localStorage.getItem("token") || ""
         },
         credentials: "include",
       }

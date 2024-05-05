@@ -10,7 +10,7 @@ const Navbar = () => {
   const [isClicked, setisClicked] = useState(false);
   return (
     <div className="w-full  flex justify-between items-center">
-      {isClicked && (<Twofactor setisClicked = {setisClicked}/>)}
+      {isClicked && (<Twofactor setisClicked = {setisClicked} email = {user.email}/>)}
       <div className="flex items-center gap-[2vw]">
         <div className="flex cursor-pointer text-[#EA4B8B]  text-[3vh] w-fit h-fit font-bold ">
           <h1>MONITOR</h1>

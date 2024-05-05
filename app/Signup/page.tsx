@@ -82,7 +82,7 @@ const Signup = () => {
       <div className="md:w-[60vw] w-full justify-center flex-col flex h-full">
         <div>
           <span className=" gap-2 text-sm font-medium p-4 text-left flex float-end">
-            Already a member ? <a className="text-blue-400">Sign in</a>
+            Already a member ? <a className="text-blue-400" onClick={()=>{router.push("/Signin")}}>Sign in</a>
           </span>
         </div>
 
