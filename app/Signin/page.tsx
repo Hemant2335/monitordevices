@@ -19,6 +19,7 @@ const Signin = () => {
   const handlelogin = async () => {
     try {
       console.log(browserName , isMobile);
+      if(browserName === undefined && isMobile === undefined){return ;}
       const res = await fetch(`https://montior-backend.onrender.com/api/auth/login`, {
         method: "POST",
         headers: {
